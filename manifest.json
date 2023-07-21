@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "helperOfSeller",
+  "version": "1.2",
+  "description": "Descrição da Sua Extensão",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "https://*.wvetro.com.br/*" 
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.wvetro.com.br/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
