@@ -1,0 +1,27 @@
+Eu tenho uma extensão de navegador que uso para facilitar e agilizar a vida dos vendedores na empresa, ela é usada no site, veja o campo content_scripts  "content_scripts": [
+      {
+        "matches": ["https://sistema.wvetro.com.br/*", "https://beta.wvetro.com.br/*"],
+        "js": ["scripts/removingPrintError.js", 
+        "scripts/setInitialData.js", 
+        "scripts/estilizandoWvetroHeader.js", 
+        "scripts/easyNavigation.js",
+        "scripts/collectDataByPages.js"]
+      }
+    ],
+
+também tenho essas permissoes
+    "permissions": [
+      "storage",
+      "https://friendly-computing-machine-production.up.railway.app/*",
+      "https://flask-production-2cb1.up.railway.app/*",
+      "http://127.0.0.1:5000/*"
+    ],
+    "host_permissions": [
+      "https://friendly-computing-machine-production.up.railway.app/*",
+      "https://flask-production-2cb1.up.railway.app/*",
+      "http://127.0.0.1:5000/*"
+    ],
+	eu guardo as coisas no localStorage! uso o prefixo 'pcpData-' e o nome da variavel por exemplo localStorage.getItem('pcpData-nomeVendedor') retorna o nome do vendedor, defini esse padrão para não me perder usando o localStorage.
+	eu diria que essa extensão tem alguns papéis, entre eles [coletar dados(salvando localStorage para outras funções como enviar para minha própria aplicação), aprimorar a interface(criar/modificar botoes com funções ou informações), facilitar navegação(tem paginas que precisa ficar apertando botoes ou preenchendo formulario, porém tem como agilizar algumas coisas)]
+	Em resumo o site que a nossa extensão trabalha não é muito otimizado, mas funcional, acredito que tenha um banco sql, muuuuitas tabelas.
+	o que achou? tem algum script que gostaria de ler para entender melhor meu jeito de programar? 

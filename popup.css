@@ -1,0 +1,10 @@
+body {
+    width: 333px;
+}
+
+
+.containerButtonsContent {
+    display: flex;
+    justify-content: left;
+    gap: 22px;
+}

@@ -1,46 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
+  <title>Minha Extensão</title>
+  <link rel="stylesheet" type="text/css" href="aesthetic.css"/>
+  <link rel="stylesheet" type="text/css" href="popup.css"/>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interface da Extensão</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="container">
-    <h1>Olá, Valter!</h1>
-    <p>Bem-vindo à interface da extensão.</p>
-    <button id="btn-show-relatory">Gerar relatório diario</button>
-    <button id="btn-open-full-screen">Abrir tela cheia!</button>
-    <button id="btn-view-relatory">Mostrar Relatórios</button>
-
-    <div class="daily-report">
-      <p>Selecione um colega de trabalho:</p>
-      <select id="colega-select">
-        <option>matheusito</option>
-      </select>
-      <p>Vendedor escolhido <span id="seller-id-name"></span></p>
-      <br><br>
-      <label for="notaInput">Nota (0-10):</label>
-      <input type="number" id="nota-input" min="0" max="10">
-      <br><br>
-      <label for="comentarioInput">Comentário:</label>
-      <textarea id="comentario-input" rows="4" cols="50"></textarea>
-      <br><br>
-      <button id="btn-send-relatory">Enviar Relatório Individual</button>
+<body class="aesthetic-windows-95-modal aesthetic-font">
+    <h1>Funções da Extensão</h1>
+    <div class="containerButtonsContent">
+        <div class="sideButtons">    
+            <!-- <button class="aesthetic-windows-95-button" id="visualizarInfo">Visualizar Informações</button> -->
+            <button class="aesthetic-windows-95-button" id="redirecionarFlask">Visualizar ranking!</button>
+            <button class="aesthetic-windows-95-button" id="reportarErro">Reportar Erro</button>
+            <button class="aesthetic-windows-95-button" id="propostaMelhoria">Propor Melhoria</button>
+        </div>
+        <div class="contentPopup">
+        </div>
     </div>
-
-    <hr>
-
-    <div class="pcp-chat">
-      <h2>papo furado com PCP</h2>
-        <textarea id="pergunta-pcp" rows="4" cols="50" placeholder="Digite sua mensagem para o PCP"></textarea><br>
-        <button id="envia-message-pcp">Enviar Mensagem</button>
-      <p id="resposta-pcp">manda qualquer coisa q to sabendo de tudo!</p>
-      <p id="pcp-icon">(o_O)</p>
-    </div>
-  </div>
-  <script src="relatory.js" type="module"></script>
-  <script src="pcpHtml.js"></script>
+  
+  <script src="popup.js"></script>
 </body>
 </html>

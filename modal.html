@@ -1,0 +1,77 @@
+<!-- Seu template principal -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatórios</title>
+    <!-- Seus estilos CSS -->
+    <!-- ... -->
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.js"></script>
+    <link rel="stylesheet" type="text/css" href="aesthetic.css">
+</head>
+<body>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <!-- Modal -->
+    <div id="priceModal" class="aesthetic-windows-95-modal">
+        <div class="aesthetic-windows-95-modal-title-bar">
+            <div class="aesthetic-windows-95-modal-title-bar-controls">
+                <button class="aesthetic-windows-95-button-title-bar-close" hx-trigger="close">X</button>
+            </div>
+        </div>
+        <div class="aesthetic-windows-95-modal-content">
+        </div>
+    </div>
+    <script>
+        // Dados de exemplo
+        let tabelas = ['Distribuidor', 'Marceneiro', 'Consumidor final'];
+        // Criação da primeira linha (nomes das tabelas)
+        var headerRow = document.createElement('tr');
+        headerRow.appendChild(document.createElement('th')); // célula vazia no canto superior esquerdo
+
+        for (var i = 0; i < tabelas.length; i++) {
+            var th = document.createElement('th');
+            th.textContent = tabelas[i];
+            headerRow.appendChild(th);
+        }
+        table.appendChild(headerRow);
+
+        // Preenchimento do restante da tabela
+        for (var j = 0; j < produtos.length; j++) {
+            var row = document.createElement('tr');
+
+            // Criação da primeira célula (nome do produto)
+            var productNameCell = document.createElement('td');
+            productNameCell.textContent = produtos[j];
+            row.appendChild(productNameCell);
+
+            // Preenchimento das células de preço
+            for (var k = 0; k < tabelas.length; k++) {
+                var priceCell = document.createElement('td');
+                priceCell.textContent = precos[k][j];
+                row.appendChild(priceCell);
+            }
+
+            table.appendChild(row);
+        }
+
+        // Adiciona a tabela ao corpo do documento
+        let modalContent = document.querySelector('.aesthetic-windows-95-modal-content')
+        modalContent.appendChild(table);
+    </script>
+            <!-- Existing content... -->
+</body>
+</html>
