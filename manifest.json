@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "helperOfAll",
-    "version": "1.0",
-    "description": "Descrição da Sua Extensão",
+    "version": "2.0",
+    "description": " para ajudar os vendedores q utilizam wvetro",
     "permissions": [
       "storage",
       "https://friendly-computing-machine-production.up.railway.app/*",
@@ -28,11 +28,13 @@
     "content_scripts": [
       {
         "matches": ["https://sistema.wvetro.com.br/*", "https://beta.wvetro.com.br/*"],
-        "js": ["scripts/removingPrintError.js", 
-        "scripts/setInitialData.js", 
-        "scripts/estilizandoWvetroHeader.js", 
-        "scripts/easyNavigation.js",
-        "scripts/collectDataByPages.js"]
+        "js": [
+          "scripts/estilizandoWvetroHeader.js", 
+          "scripts/collectDataByPages.js",
+          "scripts/removingPrintError.js", 
+          "scripts/setInitialData.js", 
+          "scripts/easyNavigation.js"
+      ]
       }
     ],
     "icons": {

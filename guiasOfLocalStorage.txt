@@ -1,0 +1,11 @@
+prefix: 'pcpData-'
+keys: [
+	* 'isAdmin' -> boolean
+	* 'userCargo' -> str oneOf > ['vendedor', 'financeiro', 'producao', 'programador']
+	* 'userName' -> nome user wvetro lowerCase
+	* 'ultimoPedido' -> dict.keys() > [numero, cliente, url]
+	* 'historicoPedidos' -> arrOfPedido ^^
+	* 'limpadosPedidos' -> arrOfPedido -url
+	]
+
+	

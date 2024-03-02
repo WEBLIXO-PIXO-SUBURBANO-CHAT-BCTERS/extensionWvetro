@@ -29,12 +29,15 @@ let isPacificUrl = isPacific ? 'pacifico' : 'competitivo'
 // Basic generative Interface
 // ================================================================================= 
 
-function generateBasicButton(label = ''){
+function generateBasicButton(label = '', classe = null){
     let button = document.createElement('button');
     button.type = 'button';
     button.textContent = label; 
     button.style.width = '100%';
     button.style.height = '25px'
+    if (classe){
+        button.classList.add(classe)
+    }
     return button
 }
 function stylizeBigButton(button){
@@ -123,6 +126,7 @@ function generateRedirectButton(label, href, id){
 }
 
 function generateLastPedidosRedirect(tagDestiny){
+    // console.log('generatin listo pedids')
     let strPedidos = localStorage.getItem('pcpData-historicoPedidos')
     let pedidos = JSON.parse(strPedidos)
 
@@ -146,8 +150,8 @@ function generateLastPedidosRedirect(tagDestiny){
         let taqNavigation = generateRedirectButton(labelzin, href, idPedido)
         divContainer.appendChild(taqNavigation)
     });
-    console.log('tagDestiny', tagDestiny)
-    console.log('divContainer', divContainer)
+    // console.log('tagDestiny', tagDestiny)
+    // console.log('divContainer', divContainer)
     tagDestiny.appendChild(divContainer)
 }
 
@@ -157,23 +161,36 @@ function generateLastPedidosRedirect(tagDestiny){
 function generateBigButton(label){
     let button = generateBasicButton(label)
     button = stylizeBigButton(button)
+    button.id = 'pcpBigButton'
     return button
 }    
 
+function generatePerfilButton(tagDestiny){
+    let classe = 'gotoPerfil-button' 
+    let button = generateBasicButton('perfil', classe)
+
+    button.addEventListener('click', ()=>{
+        window.open(`${baseExtUrl}vendedores/perfil/${nomeVendedor}/`, '_blank')
+    })
+
+    tagDestiny.appendChild(button)
+}
+
 function generateRankingButton(tagDestiny){
-    let btnRank = generateBasicButton('ver Ranking')
-    btnRank.classList.add('option-button');
+    let classe = 'option-button'
+    let btnRank = generateBasicButton('ver Ranking', classe)
     btnRank.addEventListener('click', () => {
         // console.log('Opção 1 visualizar ranking');
         window.open(`${baseExtUrlFlask}sellers/${nomeVendedor}/${isPacificUrl}`, '_blank');
     });
 
     tagDestiny.appendChild(btnRank)
+
 }
 
 function generateAdminRankingButton(tagDestiny){
-    let btnAdmin = generateBasicButton('ranking Geral')
-    btnAdmin.classList.add('btnAdmin-button');
+    let classe = 'btnAdmin-button'
+    let btnAdmin = generateBasicButton('ranking Geral', classe)
    
     btnAdmin.addEventListener('click', () => {
         // console.log('Opção 3 visualizar ranking');
@@ -187,7 +204,7 @@ function generateAdminRankingButton(tagDestiny){
 function setupLeftInterface(headerLeftDiv){
  
     if (headerLeftDiv == undefined){
-        setTimeout(verificaHeader, 500); // Verifica novamente após um intervalo de tempo
+        setTimeout(verificaHeaderLeft, 500); // Verifica novamente após um intervalo de tempo
         return
     }
 
@@ -206,6 +223,7 @@ function setupLeftInterface(headerLeftDiv){
 
     if (isVendedor){
         let btnRank = generateRankingButton(optionsContainer)
+        let btnPerfil = generatePerfilButton(optionsContainer)
     }
     if (isAdmin){
         let btnAdmin = generateAdminRankingButton(optionsContainer)
@@ -229,15 +247,6 @@ function setupLeftInterface(headerLeftDiv){
 
 
 }
-// function
-// function checkPedidosRedirectNews(tagDestiny){
-//     let firstTag = document.getElementsByClassName('redirecters')[0]
-//     let idOfLastAdded = JSON.parse(localStorage.getItem('pcpData-ultimoPedido'))['numero']
-
-//     if (firstTag.id != `pcpIdElement-${idOfLastAdded}`){
-//         resetPedidosRedirectUrl(tagDestiny)
-//     }
-// }
 
 
 function setupRightInterface(tagDestiny){
@@ -248,24 +257,36 @@ function setupRightInterface(tagDestiny){
 // ================================================================================= 
 
 function verificaURL() {
-    // console.log('testing')
+    // console.log('verificaUrl')
     if (window.location.href.includes('login')) {
         setTimeout(() => {
             verificaURL(); // Verifica novamente após um intervalo de tempo
         }, 1000);
     } else {
             // console.log('lets tryg')
-            verificaHeaderLeft(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
-            verificaHeaderRight(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
+            setupHeaderInfo()
         // })
     }
 }
+
+function setupHeaderInfo(){
+    let headerSection = document.querySelector('.header-section')
+    if (headerSection){
+        console.log('headerSetup')
+        verificaHeaderRight(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
+        verificaHeaderLeft(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
+    }else{
+        setInterval(()=>{setupHeaderInfo()},500)
+    }
+
+}
+
 
 function verificaHeaderRight(){
     const headerRightDiv = document.querySelector('.header-right')
 
     if (headerRightDiv !== null) {
-        // console.log('header-right Pronto');
+        console.log('header-right Pronto');
         setupRightInterface(headerRightDiv)
 
     } else {
@@ -283,7 +304,7 @@ function verificaHeaderLeft() {
         setupLeftInterface(headerLeftDiv);
 
     } else {
-      console.log('Elemento .header-left não encontrado, tentando novamente.');
+    //   console.log('Elemento .header-left não encontrado, tentando novamente.');
       setTimeout(verificaHeaderLeft, 500); 
     }
   }
