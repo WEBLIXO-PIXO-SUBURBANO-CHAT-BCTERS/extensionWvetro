@@ -6,11 +6,13 @@
     "permissions": [
       "storage",
       "https://friendly-computing-machine-production.up.railway.app/*",
+      "https://friendly-computing-machine-development.up.railway.app/*",
       "https://flask-production-2cb1.up.railway.app/*",
       "http://127.0.0.1:5000/*"
     ],
     "host_permissions": [
       "https://friendly-computing-machine-production.up.railway.app/*",
+      "https://friendly-computing-machine-development.up.railway.app/*",
       "https://flask-production-2cb1.up.railway.app/*",
       "http://127.0.0.1:5000/*"
     ],
@@ -33,7 +35,8 @@
           "scripts/collectDataByPages.js",
           "scripts/removingPrintError.js", 
           "scripts/setInitialData.js", 
-          "scripts/easyNavigation.js"
+          "scripts/easyNavigation.js",
+          "scripts/tryngScripts/comunicationWithSite.js"
       ]
       }
     ],

@@ -14,19 +14,19 @@ let isTryggedCoreOrcamento = false
 
 function selectName(){
     const selectElement = document.getElementById("vVENDEDORID");
-    console.log('select' + selectElement)
+    // console.log('select' + selectElement)
     if (selectElement) {
         selectElement.value = mySellerId;
     const changeEvent = new Event('change', { bubbles: true });
     selectElement.dispatchEvent(changeEvent);
-    console.log('SELECTED',)
+    // console.log('SELECTED',)
   }else{
     setTimeout(selectName, 500)
   }
 }
 
 function apertarBotao(query, keyBookOfTrygo = null){
-    console.log('pertao botao')
+    // console.log('pertao botao')
     const element = document.querySelector(query)
     if (element == null){
         setTimeout(()=>{apertarBotao(query, keyBookOfTrygo)}, 500)
@@ -49,7 +49,7 @@ function coreOrcamentoCheck(currentURL){
     }else{        
         apertarBotao('#BTN_SEARCH', isTryggedCoreOrcamento)    
         if (currentURL.includes("app.core.wworcamento")){
-            console.log('coreOrcamentoCheck tryg')
+            // console.log('coreOrcamentoCheck tryg')
             
         let inputsListAddEvents = ['#vORCAMENTOID1','#vORCAMENTOSITUACAO', '#vCLIENTENOMERAZAO', '#vVENDEDORNOME', '#vORCAMENTODATACADASTRO', '#vORCAMENTODATACADASTRO_TO' ]
         
@@ -71,7 +71,7 @@ function coreOrcamentoCheck(currentURL){
                 })
             }
         })        
-        console.log('TRUE | app.core.wworcamento | '+currentURL)
+        // console.log('TRUE | app.core.wworcamento | '+currentURL)
         }else if(!currentURL.includes("app.core.wworcamento")){
             isTryggedCoreOrcamento = false
             // console.log('FALSE | app.core.wworcamento | '+currentURL)

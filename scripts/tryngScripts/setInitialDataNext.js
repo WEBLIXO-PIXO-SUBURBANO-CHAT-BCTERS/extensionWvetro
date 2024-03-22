@@ -43,7 +43,7 @@ function sendData(url) {
       for (let key in data) {
         localStorage.setItem("pcpData-" + key, data[key]);
       }
-      console.log("Dados atualizados com sucesso!"); // Mostrar uma mensagem de sucesso no console
+      // console.log("Dados atualizados com sucesso!"); // Mostrar uma mensagem de sucesso no console
     })
     .catch(error => console.error(error)); // Mostrar o erro no console
   }

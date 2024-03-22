@@ -54,35 +54,34 @@ function verificaURL() {
     // console.log('setInitialData->verificaUrl()')
     
     if (window.location.href.includes('login')) {
-        cleanPedidosLinks()
         setTimeout(() => {
             verificaURL(); // Verifica novamente após um intervalo de tempo
         }, 1000);
     } else {
-    setHeaderInformation()
+        setHeaderInformation()
+        cleanPedidosLinks()
     }
 }
 
-async function checkLink(url) {
-    // Usar o fetch API para obter o status do link, usando o método HEAD
-    return fetch(url, {
-      method: "GET"
-    })
-    .then(response => !response.url.includes('notauthorized')) // Retornar o código do status
-    .catch(error => false); // Mostrar o erro no console
-  }
 
 // ################################################################################################################################################################################################################
 // CLEANING PEDIDOS LINKS
 // ################################################################################################################################################################################################################
 // Função para limpar os links dos pedidos que estão inválidos, usando a função checkLink
+async function checkLink(url) {
+    // Usar o fetch API para obter o status do link, usando o método HEAD
+    return fetch(url, {
+      method: "GET"
+    })
+    .then(response => response.status) // Retornar o código do status
+    .catch(error => false); // Mostrar o erro no console
+  }
 
 async function checkPedido(pedido){
-    // console.log('pedido')
-    // console.log(pedido)
     let link = pedido["url"];
     let status = await checkLink(link);
-    if (status) {
+    console.log('controle de links -> ', link, status, pedido['numero'])
+    if (status < 300) {
         return true; // retorna true para qualquer outro status
     } else {
         return false; // retorna false se o status for 403 (Forbidden)
@@ -95,35 +94,37 @@ async function cleanPedidosLinks() {
     if(!isCleaned){
 
         isCleaned = true
+        let neededToBeClean = false
         let pedidosValidos = [];
+
     
         let pedidos = JSON.parse(localStorage.getItem("pcpData-historicoPedidos"));
-        
-        let lenPedido = pedidos.length    
-        // console.log('pedidos: estudo -1', pedidos[lenPedido -1])
-        // console.log('pedidos: estudo', pedidos[1])
-        
-        // if (!checkPedido(pedidos[lenPedido -1])){
-            for (let pedido of pedidos) {
-                check = await checkPedido(pedido)
-                console.log(check)
+    
+        if (pedidos != null){
+            console.log('cleanando',pedidos)        
+            
+            pedidos.forEach(async pedido => {
+                let check = await checkPedido(pedido)
                 if (check) {
-                pedidosValidos.unshift(pedido);
-            } else {
-                delete pedido["url"];
-                addDictToArrLS("pcpData-pedidosExcluidos", pedido);
+                    pedidosValidos.unshift(pedido);
+                    console.log(check, pedido, pedidosValidos)
+                } else {
+                    neededToBeClean = true
+                    delete pedido["url"];
+                    addDictToArrLS("pcpData-pedidosExcluidos", pedido);
+                    console.log('ERRADO', pedido)
+                }
+                
+            });
+            
+            let json = JSON.stringify(pedidosValidos);
+            if (neededToBeClean){
+                localStorage.setItem("pcpData-historicoPedidos", json);
+                console.log("Links limpos com sucesso!", pedidosValidos); 
+            }else{
+                console.log('links estavam limpinho')
             }
         }
-        
-        let json = JSON.stringify(pedidosValidos);
-        
-        localStorage.setItem("pcpData-historicoPedidos", json);
-        console.log("Links limpos com sucesso!"); 
-        // console.log(json); 
-        // }else{
-            
-        // console.log('todos links estavam funcionando')
-        // }
     }
 }
     
@@ -131,16 +132,8 @@ async function cleanPedidosLinks() {
 // GETTING PROCESSING SAVEING DATA
 // ################################################################################################################################################################################################################
 function setHeaderInformation(){
-    // let userNameTag = document.querySelector('.user-name')
-    // if (!userNameTag){
-    //     setTimeout(() => {
-    //         setHeaderInformation()
-    //     }, 500);
-    // } else {return 'deu nao'}
-    // let userName = userNameTag.querySelector('p').textContent.toLowerCase()
-    // let userCargo = cargoGuide[userName]
-
     try {
+        cleanPedidosLinks()
         let userName = document.querySelector('.user-name').querySelector('p').textContent.toLowerCase();
         let userCargo = cargoGuide[userName];
         

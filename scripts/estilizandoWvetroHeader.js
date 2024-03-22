@@ -86,6 +86,7 @@ function generateRedirectButton(label, href, id){
     redirecter.style.color = 'white'
     redirecter.style.height = '500'
     redirecter.textContent = label
+    redirecter.style.width = 'fit-content'
     
     let containerRedirecter = document.createElement('div')
     containerRedirecter.style.backgroundColor = 'darkblue'
@@ -129,9 +130,14 @@ function generateLastPedidosRedirect(tagDestiny){
     // console.log('generatin listo pedids')
     let strPedidos = localStorage.getItem('pcpData-historicoPedidos')
     let pedidos = JSON.parse(strPedidos)
+    if (pedidos==null){ pedidos = []}
 
     let divContainer = document.createElement('div')
     divContainer.style.display = 'flex'
+    divContainer.style.flexWrap = 'no-wrap'
+    divContainer.style.whiteSpace = 'nowrap';
+    divContainer.style.overflowX = 'auto';
+
     divContainer.style.backgroundColor = '#77f'
     divContainer.style.gap = '10px'
     divContainer.style.padding = '5px'
@@ -188,6 +194,19 @@ function generateRankingButton(tagDestiny){
 
 }
 
+function generateBeautyAdminRankingButton(tagDestiny){
+    let classe = 'btnAdmin-button'
+    let btnAdmin = generateBasicButton('g e r e n c i a', classe)
+    btnAdmin.style.backgroundColor = 'lightBlue'
+   
+    btnAdmin.addEventListener('click', () => {
+        // console.log('Opção 3 visualizar ranking');
+        window.open(`${baseExtUrl}/admin`, '_blank');
+    });
+    
+    tagDestiny.appendChild(btnAdmin)
+
+}
 function generateAdminRankingButton(tagDestiny){
     let classe = 'btnAdmin-button'
     let btnAdmin = generateBasicButton('ranking Geral', classe)
@@ -227,6 +246,7 @@ function setupLeftInterface(headerLeftDiv){
     }
     if (isAdmin){
         let btnAdmin = generateAdminRankingButton(optionsContainer)
+        let btnBeauty = generateBeautyAdminRankingButton(optionsContainer)
     }
 
     mainButton.addEventListener('click', () => {
@@ -272,7 +292,7 @@ function verificaURL() {
 function setupHeaderInfo(){
     let headerSection = document.querySelector('.header-section')
     if (headerSection){
-        console.log('headerSetup')
+        // console.log('headerSetup')
         verificaHeaderRight(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
         verificaHeaderLeft(); // Chama a função setupPcpInterface quando 'login' não estiver mais na URL
     }else{
@@ -286,11 +306,11 @@ function verificaHeaderRight(){
     const headerRightDiv = document.querySelector('.header-right')
 
     if (headerRightDiv !== null) {
-        console.log('header-right Pronto');
+        // console.log('header-right Pronto');
         setupRightInterface(headerRightDiv)
 
     } else {
-      console.log('Elemento .header-Right não encontrado, tentando novamente.');
+    //   console.log('Elemento .header-Right não encontrado, tentando novamente.');
       setTimeout(verificaHeaderRight, 500); 
     }
 }
@@ -308,5 +328,5 @@ function verificaHeaderLeft() {
       setTimeout(verificaHeaderLeft, 500); 
     }
   }
-
+// console.log('gogoletsGo')
 verificaURL()

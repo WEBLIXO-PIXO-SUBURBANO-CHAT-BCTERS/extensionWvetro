@@ -22,11 +22,11 @@ function selectName(){
         selectElement.value = mySellerId;
     const changeEvent = new Event('change', { bubbles: true });
     selectElement.dispatchEvent(changeEvent);
-    console.log('SELECTED',)
+    // console.log('SELECTED',)
   }
 }
 selectName()
-console.log('scripted')
+// console.log('scripted')
 
 
 let alreadyTrigged = false
