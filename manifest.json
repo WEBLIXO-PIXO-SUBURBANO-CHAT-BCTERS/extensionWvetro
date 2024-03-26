@@ -31,10 +31,11 @@
       {
         "matches": ["https://sistema.wvetro.com.br/*", "https://beta.wvetro.com.br/*"],
         "js": [
+          "scripts/utilitiesFunctions.js",
+          "scripts/setInitialData.js", 
           "scripts/estilizandoWvetroHeader.js", 
           "scripts/collectDataByPages.js",
           "scripts/removingPrintError.js", 
-          "scripts/setInitialData.js", 
           "scripts/easyNavigation.js",
           "scripts/tryngScripts/comunicationWithSite.js"
       ]

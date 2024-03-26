@@ -1,3 +1,7 @@
+
+let limite = 8 * 60 * 60 * 1000; // 8 horas em milissegundos
+localStorage.setItem('pcpData-limiteToken', limite);
+
 // ################################################################################################################################################################################################################
 // A LOTS OF DATA
 // ################################################################################################################################################################################################################
@@ -87,43 +91,65 @@ async function checkPedido(pedido){
         return false; // retorna false se o status for 403 (Forbidden)
     }
 }
+function checkHorario(objeto, limiteEspecifico = null) {
+    let agora = new Date();
+    let horarioColeta = new Date(objeto.horarioColeta);
 
+    if (!objeto.hasOwnProperty('horarioColeta')){
+        return false
+    }
+
+    let limite
+    if (limiteEspecifico == null){
+        limite = JSON.parse(localStorage.getItem('pcpData-limiteToken')); // teria q transofrmar em numero antes?
+    } else {
+        limite = limiteEspecifico
+    }
+
+    if (agora.getTime() > horarioColeta.getTime() + limite) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 let isCleaned = false
-async function cleanPedidosLinks() {
-    if(!isCleaned){
+function cleanPedidosLinks() {
+    console.log('cleanPedidosLinks() #setInitialData.js')
+    let ultimaLimpezaStr = localStorage.getItem('pcpData-ultimaLimpezaLinks');
+    
+    let ultimaLimpeza = ultimaLimpezaStr ? new Date(JSON.parse(ultimaLimpezaStr)) : new Date(0);
+    
+    let agora = new Date();
+    let tresHoras = 3 * 60 * 60 * 1000; // 3 horas em milissegundos
+    let tresMinutos = 3 * 60 * 1000
 
-        isCleaned = true
-        let neededToBeClean = false
+    console.log('agora -> ' , agora)
+    console.log('ultimaLimpeza -> ' , ultimaLimpeza)
+    console.log('tresMinutos -> ' , tresMinutos)
+    let verificacao = agora.getTime() - ultimaLimpeza.getTime() >= tresMinutos
+    console.log('IF -> ' , verificacao)
+    // Verifica se já passaram 3 horas desde a última limpeza
+    if (verificacao) {
         let pedidosValidos = [];
-
-    
         let pedidos = JSON.parse(localStorage.getItem("pcpData-historicoPedidos"));
-    
-        if (pedidos != null){
-            console.log('cleanando',pedidos)        
-            
-            pedidos.forEach(async pedido => {
-                let check = await checkPedido(pedido)
+
+        if (pedidos != null) {
+            console.log('cleanando', pedidos);
+
+            pedidos.forEach(pedido => {
+                let check = checkHorario(pedido);
                 if (check) {
                     pedidosValidos.unshift(pedido);
-                    console.log(check, pedido, pedidosValidos)
+                    console.log(check, pedido, pedidosValidos);
                 } else {
-                    neededToBeClean = true
-                    delete pedido["url"];
-                    addDictToArrLS("pcpData-pedidosExcluidos", pedido);
-                    console.log('ERRADO', pedido)
+                    removeDictFromArrLS('pcpData-historicoPedidos', 'numero', pedido['numero']);
+                    console.log('banido', pedido);
                 }
-                
             });
-            
-            let json = JSON.stringify(pedidosValidos);
-            if (neededToBeClean){
-                localStorage.setItem("pcpData-historicoPedidos", json);
-                console.log("Links limpos com sucesso!", pedidosValidos); 
-            }else{
-                console.log('links estavam limpinho')
-            }
+
+            // Atualiza o horário da última limpeza
+            localStorage.setItem('pcpData-ultimaLimpezaLinks', JSON.stringify(agora));
         }
     }
 }

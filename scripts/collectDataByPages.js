@@ -1,16 +1,4 @@
 // ***********************************************************************
-// UTILITIES FUNCTIONS
-// ***********************************************************************
-function callThisLater(yourFunc){
-    setTimeout(() => {
-        yourFunc()
-    }, 1000);
-}
-function checkTag(query){
-    return !!document.querySelector(query)
-}
-
-// ***********************************************************************
 // DETALHE ORCAMENTO SHITS
 // ***********************************************************************
 function getPedidoFromHtmlDetalheOrc() {
@@ -29,7 +17,8 @@ function getPedidoFromHtmlDetalheOrc() {
     let situacao = situacaoTagValue == 'CONFIRMAR VENDA' ? 'orcando' : 'vendido'
 
     // let pedido = {'numero': numero, 'cliente':cliente, 'vendedor': vendedor, 'url': urlForHref}
-    let pedido = {'numero':numero, 'cliente': cliente, 'url':urlForHref, 'situacao':situacao}
+    let horarioColeta = getHorarioAtual()
+    let pedido = {'numero':numero, 'cliente': cliente, 'url':urlForHref, 'situacao':situacao, 'horarioColeta':horarioColeta}
     return pedido
 }
 
@@ -52,41 +41,6 @@ function updateHistoricNewPedido(pedido){
     
     isDetalheTrygged = true
 }
-
-function addDictToArrLS(lsKey, data, uniqueItens = true, defaultId = 'numero', max = null){
-    let oldDataStr = localStorage.getItem(lsKey)
-    let myIdData = data[defaultId]
-    console.log('Tamanho do array antes de adicionar:', oldDataStr ? JSON.parse(oldDataStr).length : 0, max);
-
-    if (oldDataStr){
-        let arrData = JSON.parse(oldDataStr)
-
-        if (uniqueItens) {
-            let existingIndex = arrData.findIndex(item => item[defaultId] === myIdData);
-            if (existingIndex !== -1) {
-                arrData.splice(existingIndex, 1);
-            }
-        }
-        if (max != null){
-            if (arrData.length >= max){
-                while (arrData.length >= max){
-                    arrData.pop()
-                }
-            }   
-        }
-        arrData.unshift(data)
-        
-        let newArrData = JSON.stringify(arrData)
-        localStorage.setItem(lsKey, newArrData)
-    }else {
-        let newDataStr = JSON.stringify([data])
-        localStorage.setItem(lsKey, newDataStr)
-    }
-
-    let newLength = JSON.parse(localStorage.getItem(lsKey)).length;
-    console.log('Tamanho do array depois de adicionar:', newLength);
-}
-
 function updateGuideLinesHistoricPedidos(){
     let pedidosHistorico = JSON.parse(localStorage.getItem('pcpData-historicoPedidos'))
     

@@ -50,35 +50,35 @@ function stylizeBigButton(button){
     return button
 }
 
-function generateBtnEsquecerPedido(idPedidoEsquecido){
-    // Adiciona o botão 'Esquecer Pedido' com efeito hover
-    let btnEsquecerPedido = document.createElement('button');
-    btnEsquecerPedido.textContent = 'Esquecer Pedido';
-    btnEsquecerPedido.style.display = 'none'; // Inicialmente oculto
+// function generateBtnEsquecerPedido(idPedidoEsquecido){
+//     // Adiciona o botão 'Esquecer Pedido' com efeito hover
+//     let btnEsquecerPedido = document.createElement('button');
+//     btnEsquecerPedido.textContent = 'Esquecer Pedido';
+//     btnEsquecerPedido.style.display = 'none'; // Inicialmente oculto
 
-    // Define o estilo do botão
-    btnEsquecerPedido.style.backgroundColor = 'red';
-    btnEsquecerPedido.style.color = 'white';
-    btnEsquecerPedido.style.position = 'relative';
-    // btnEsquecerPedido.style.top = '-60px'; // Posiciona acima do container
-    btnEsquecerPedido.style.left = '50%'; // Centraliza horizontalmente
-    btnEsquecerPedido.style.transform = 'translateX(-50%)'; // Centraliza horizontalmente
-    btnEsquecerPedido.style.padding = '5px 10px';
-    btnEsquecerPedido.style.border = 'none';
-    btnEsquecerPedido.style.borderRadius = '5px';
-    btnEsquecerPedido.style.cursor = 'pointer';
+//     // Define o estilo do botão
+//     btnEsquecerPedido.style.backgroundColor = 'red';
+//     btnEsquecerPedido.style.color = 'white';
+//     btnEsquecerPedido.style.position = 'relative';
+//     // btnEsquecerPedido.style.top = '-60px'; // Posiciona acima do container
+//     btnEsquecerPedido.style.left = '50%'; // Centraliza horizontalmente
+//     btnEsquecerPedido.style.transform = 'translateX(-50%)'; // Centraliza horizontalmente
+//     btnEsquecerPedido.style.padding = '5px 10px';
+//     btnEsquecerPedido.style.border = 'none';
+//     btnEsquecerPedido.style.borderRadius = '5px';
+//     btnEsquecerPedido.style.cursor = 'pointer';
     
 
-    btnEsquecerPedido.addEventListener('click',()=>{
-        let localPedidos = JSON.parse(localStorage.getItem('pcpData-historicoPedidos'))
-        let newLocalPedidos = localPedidos.map(pedido=>{return pedido['numero'] != idPedidoEsquecido })
-        let newLocalPedidosStr = JSON.stringify(newLocalPedidos)
-        localStorage.setItem('pcpData-historicoPedidos', newLocalPedidosStr)
-        resetPedidosRedirectUrl()
-    })
+//     btnEsquecerPedido.addEventListener('click',()=>{
+//         let localPedidos = JSON.parse(localStorage.getItem('pcpData-historicoPedidos'))
+//         let newLocalPedidos = localPedidos.map(pedido=>{return pedido['numero'] != idPedidoEsquecido })
+//         let newLocalPedidosStr = JSON.stringify(newLocalPedidos)
+//         localStorage.setItem('pcpData-historicoPedidos', newLocalPedidosStr)
+//         resetPedidosRedirectUrl()
+//     })
 
-    return btnEsquecerPedido
-}
+//     return btnEsquecerPedido
+// }
 
 function generateRedirectButton(label, href, id){
     let redirecter = document.createElement('p')

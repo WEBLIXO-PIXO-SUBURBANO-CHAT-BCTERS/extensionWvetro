@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Minha Extensão</title>
-  <link rel="stylesheet" type="text/css" href="aesthetic.css"/>
-  <link rel="stylesheet" type="text/css" href="popup.css"/>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <script src="popup.js"></script>
 </head>
-<body class="aesthetic-windows-95-modal aesthetic-font">
-    <h1>Funções da Extensão</h1>
-    <div class="containerButtonsContent">
-        <div class="sideButtons">    
-            <!-- <button class="aesthetic-windows-95-button" id="visualizarInfo">Visualizar Informações</button> -->
-            <button class="aesthetic-windows-95-button" id="redirecionarFlask">Visualizar ranking!</button>
-            <button class="aesthetic-windows-95-button" id="reportarErro">Reportar Erro</button>
-            <button class="aesthetic-windows-95-button" id="propostaMelhoria">Propor Melhoria</button>
-        </div>
-        <div class="contentPopup">
-        </div>
-    </div>
-  
-  <script src="popup.js"></script>
+<body>
+    <h1>Configurações</h1>
+    <label for="enableUtilitiesFunctions">Habilitar utilitiesFunctions.js:</label>
+    <input type="checkbox" id="enableUtilitiesFunctions" checked>
+    <br>
+    <label for="enableSetInitialData">Habilitar setInitialData.js:</label>
+    <input type="checkbox" id="enableSetInitialData" checked>
+    <br>
+    <label for="enableEstilizandoWvetroHeader">Habilitar estilizandoWvetroHeader.js:</label>
+    <input type="checkbox" id="enableEstilizandoWvetroHeader" checked>
+    <br>
+    <label for="enableCollectDataByPages">Habilitar collectDataByPages.js:</label>
+    <input type="checkbox" id="enableCollectDataByPages" checked>
+    <br>
+    <label for="enableRemovingPrintError">Habilitar removingPrintError.js:</label>
+    <input type="checkbox" id="enableRemovingPrintError" checked>
+    <br>
+    <label for="enableEasyNavigation">Habilitar easyNavigation.js:</label>
+    <input type="checkbox" id="enableEasyNavigation" checked>
+    <br>
+    <label for="enableComunicationWithSite">Habilitar comunicationWithSite.js:</label>
+    <input type="checkbox" id="enableComunicationWithSite" checked>
+    <br>
 </body>
 </html>
